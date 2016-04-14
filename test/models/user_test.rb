@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   should belong_to(:employee)
-
+  should have_secure_password
   # Validating email...
   should allow_value("fred@fred.com").for(:email)
   should allow_value("fred@andrew.cmu.edu").for(:email)
@@ -52,6 +52,11 @@ class UserTest < ActiveSupport::TestCase
       assert_equal "mdf@example.com", freeman_user.email
       assert freeman.destroy
       assert freeman_user.destroyed?
+    end
+
+    should "have working class method for authenication" do 
+      assert User.authenticate("ben@example.com", "creamery")
+      deny User.authenticate("ben@example.com", "password")
     end
 
   end
