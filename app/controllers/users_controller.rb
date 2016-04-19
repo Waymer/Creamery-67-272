@@ -1,15 +1,12 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  # authorize_resource
+  authorize_resource
 
   def index
-    @users = User.alphabetical.paginate(:page => params[:page]).per_page(7)
+    # @users = User.paginate(:page => params[:page]).per_page(7)
   end
 
   def show
-    @user_assignments = @user.assignments.active.by_project
-    @created_tasks = Task.for_creator(@user.id).by_name
-    @completed_tasks = Task.for_completer(@user.id).by_name
   end
 
   def new
@@ -41,7 +38,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    flash[:notice] = "Successfully removed #{@user.proper_name} from Arbeit."
+    flash[:notice] = "Successfully removed #{@user.proper_name} from AMC."
     redirect_to users_url
   end
 
@@ -51,10 +48,6 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      if current_user && current_user.role?(:admin)
-        params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :role, :active)  
-      else
-        params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :active)
-      end
+      params.require(:user).permit(:email, :password, :password_confirmation, :employee_id)
     end
 end
