@@ -13,7 +13,18 @@ class User < ActiveRecord::Base
   def self.authenticate(email,password)
     find_by_email(email).try(:authenticate, password)
   end
-  
+  def name
+    "#{self.employee.first_name} #{self.employee.last_name}"
+  end
+
+  # def role?(authorized_role)
+  #   return false if self.employee.current_assignment.role.nil?
+  #   self.employee.current_assignment.role.to_sym == authorized_role
+  # end
+  def role
+    return "Unassigned" if self.employee.current_assignment.nil?
+    return self.employee.current_assignment.role
+  end
   private
   def employee_is_active_in_system
     is_active_in_system(:employee)
