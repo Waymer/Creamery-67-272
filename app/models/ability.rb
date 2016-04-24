@@ -13,67 +13,89 @@ class Ability
     elsif user.role? :manager
       # can see a list of all things
       can :read, Store
-      can :index, Flavor
-      can :read, Shift
-      can :read, Assignment
-      can :read, Employee
-      can :index, Job
-
-      can :create, Shift
-      can :update, Shift
-      can :create, Job
-      can :update, Job
+      can :read, Flavor
+      can :read, Job
+      can :read, Shift do |s|
+        if current_assignment.nil?
+          return false
+        else
+          user.employee.current_assignment.store_id == s.assignment.store_id
+        end
+      end
+      can :read, Assignment do |a|
+        if current_assignment.nil?
+          return false
+        else
+          user.employee.current_assignment.store_id == a.store_id
+        end
+      end
+      can :read, Employee do |e|
+        if current_assignment.nil?
+          return false
+        else
+          user.employee.current_assignment.store_id == e.current_assignment.store_id
+        end
+      end
+      can :create, Shift do |s|
+        if current_assignment.nil?
+          return false
+        else
+          user.employee.current_assignment.store_id == s.assignment.store_id
+        end
+      end
+      can :update, Shift do |s|
+        if current_assignment.nil?
+          return false
+        else
+          user.employee.current_assignment.store_id == s.assignment.store_id
+        end
+      end
+      can :destroy, Shift do |s|
+        if current_assignment.nil?
+          return false
+        else
+          user.employee.current_assignment.store_id == s.assignment.store_id
+        end
+      end
       can :update, Employee
-      # # they can read their own profile
-      # can :show, User do |u|  
-      #   u.id == user.id
-      # end
-      # # they can update their own profile
-      # can :update, User do |u|  
-      #   u.id == user.id
-      # end
-      
-      # # they can read their own projects' data
-      # can :read, Project do |this_project|  
-      #   my_projects = user.projects.map(&:id)
-      #   my_projects.include? this_project.id 
-      # end
-      # # they can create new projects for themselves
-      # can :create, Project
-      
-      # # they can update the project only if they are the manager (creator)
-      # can :update, Project do |this_project|
-      #   managed_projects = user.projects.map{|p| p.id if p.manager_id == user.id}
-      #   managed_projects.include? this_project.id
-      # end
-            
-      # # they can read tasks in these projects
-      # can :read, Task do |this_task|  
-      #   project_tasks = user.projects.map{|p| p.tasks.map(&:id)}.flatten
-      #   project_tasks.include? this_task.id 
-      # end
-      
-      # # they can update tasks in these projects
-      # can :update, Task do |this_task|  
-      #   project_tasks = user.projects.map{|p| p.tasks.map(&:id)}.flatten
-      #   project_tasks.include? this_task.id 
-      # end
-      
-      # # they can create new tasks for these projects
-      # can :create, Task do |this_task|  
-      #   my_projects = user.projects.map(&:id)
-      #   my_projects.include? this_task.project_id  
-      # end
+      can :create, ShiftJob do |sj|
+        if current_assignment.nil?
+          return false
+        else
+          user.employee.current_assignment.store_id == sj.shift.assignment.store_id
+        end
+      end
+      can :destroy, ShiftJob do |sj|
+        if current_assignment.nil?
+          return false
+        else
+          user.employee.current_assignment.store_id == sj.shift.assignment.store_id
+        end
+      end
+      can :create, StoreFlavor do |sf|
+        if current_assignment.nil?
+          return false
+        else
+          user.employee.current_assignment.store_id == sf.store_id
+        end
+      end
+      can :destroy, StoreFlavor do |sf|
+        if current_assignment.nil?
+          return false
+        else
+          user.employee.current_assignment.store_id == sf.store_id
+        end
+      end
     elsif user.role? :employee
       # they can read their own profile
-      can :show, User do |u|  
+      can :read, User do |u|  
         u.id == user.id
       end
       # they can update their own profile
       can :update, User do |u|  
         u.id == user.id
       end
-      can :show, Employee do |e|  
+      can :read, Employee do |e|  
         my_employee = user.employee.map(&:id)
         my_employee.include? e.id
       end
@@ -82,26 +104,28 @@ class Ability
         my_employee = user.employee.map(&:id)
         my_employee.include? e.id
       end
-      can :show, Store
-      can :show, Shift do |s|
+      can :read, Store
+      can :read Flavor
+      can :read Job
+      can :read, Assignment do |a|
+        my_shifts = user.employee.assignments.map(&:id)
+        my_shifts.include? a.id
+      end
+      can :read, Shift do |s|
         my_shifts = user.employee.shifts.map(&:id)
         my_shifts.include? s.id
       end
-      # can :show, Assignment do |a|
-      #   my_shifts = user.employee.shifts.map(&:id)
-      #   my_shifts.include? s.id
-      # end
-      can :index, Store
-      can :index, Flavor
-      can :index, Shift do |s|
-        my_shifts = user.employee.shifts.map(&:id)
-        my_shifts.include? s.id
+      can :read, ShiftJob do |sj|
+        my_shiftjobs = user.employee.shifts.shift_jobs.map(&:id)
+        my_shiftjobs.include? sj.id
       end
     else
       # guests can only read domains covered (plus home pages)
       # can :read, Domain
-      can :read, Store
-      can :read, Flavor
+      can :read, Store do |s|
+        active_stores = Store.active.map(&:id)
+        active_stores.include? s.id
+      end
     end
   end
 end
