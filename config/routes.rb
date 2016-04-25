@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   resources :stores
   resources :employees
   resources :assignments
-
+  resources :flavors
+  resources :jobs
   resources :users
   resources :sessions
   get 'user/edit' => 'users#edit', :as => :edit_current_user

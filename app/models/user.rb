@@ -17,13 +17,12 @@ class User < ActiveRecord::Base
     "#{self.employee.first_name} #{self.employee.last_name}"
   end
 
-  # def role?(authorized_role)
-  #   return false if self.employee.current_assignment.role.nil?
-  #   self.employee.current_assignment.role.to_sym == authorized_role
-  # end
+  def role?(authorized_role)
+    return false if self.employee.current_assignment.role.nil?
+    self.employee.current_assignment.role.to_sym == authorized_role
+  end
   def role
-    return "Unassigned" if self.employee.current_assignment.nil?
-    return self.employee.current_assignment.role
+    return self.employee.role
   end
   private
   def employee_is_active_in_system
