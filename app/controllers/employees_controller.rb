@@ -14,6 +14,7 @@ class EmployeesController < ApplicationController
 
   def new
     @employee = Employee.new
+    @employee.user.build
   end
 
   def edit

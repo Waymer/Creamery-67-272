@@ -1,0 +1,22 @@
+<% if @jobs.empty? %>
+  <p><em>This shift has no jobs yet.</em></p>
+<% else %>
+  <h3>Jobs for this shift</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th width="225">Job Name</th>
+        <th width="225">Job Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @jobs.each do |job| %>
+        <tr>
+          <td><%= job.name %></td> 
+          <td><%= job.description %></td>       
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @jobs, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %> <p>&nbsp;</p>
+<% end %>

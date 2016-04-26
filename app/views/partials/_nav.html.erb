@@ -31,8 +31,46 @@
             <li><%= link_to "Create New Assignment", new_assignment_path %></li>
           </ul>
         </li>
+
+        <!-- options for flavors -->
+        <li class="has-dropdown">
+          <%= link_to "Flavors", flavors_path %>
+          <ul class="dropdown">
+            <li><%= link_to "Flavor List", flavors_path %></li>
+            <li><%= link_to "Add a Flavor", new_flavor_path %></li>
+          </ul>
+        </li>
+
+        <!-- options for jobs -->
+      <li class="has-dropdown">
+          <%= link_to "Jobs", jobs_path %>
+          <ul class="dropdown">
+            <li><%= link_to "Job List", jobs_path %></li>
+            <li><%= link_to "Add a Job", new_job_path %></li>
+          </ul>
+        </li>
+
+        <!-- options for shifts -->
+      <li class="has-dropdown">
+          <%= link_to "Shifts", shifts_path %>
+          <ul class="dropdown">
+            <li><%= link_to "Shift List", shifts_path %></li>
+            <li><%= link_to "Add a Shift", new_shift_path %></li>
+          </ul>
+        </li>
       </ul>
 
+      <div id="login">
+      <!-- content once logged in goes here -->
+        <% if logged_in? %>
+          <%= link_to 'Logout', logout_path %>
+          [<%= current_user.name %>:<%= current_user.role %>]
+        <% else %>
+          <%= link_to 'Login', login_path %>
+        <% end %>
+
+    </div>
+      
     </section>
   </nav>
 </div>

@@ -11,22 +11,13 @@
   </head>
 
   <body>
-    <div id="title_area">
+    <!-- <div id="title_area">
       <%= link_to image_tag('creamery_title.png'), home_path %>
-    </div>
+    </div> -->
     <%= render :partial => "partials/nav" %>
     
     <div class="row">
-    <div id="login">
-      <!-- content once logged in goes here -->
-        <% if logged_in? %>
-          <%= link_to 'Logout', logout_path %>
-          <br>[<%= current_user.name %>:<%= current_user.role %>]
-        <% else %>
-          <%= link_to 'Login', login_path %>
-        <% end %>
-
-    </div>
+    
       <div class="small-12 columns" id="main_content">
         <%= render :partial => "partials/flash" %>
         <%= yield %>
