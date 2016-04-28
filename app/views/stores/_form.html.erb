@@ -1,18 +1,26 @@
-<%= simple_form_for @store, html: { class: 'form-horizontal' } do |f| %>
-  <fieldset>
-    <legend><%= controller.action_name.capitalize %> Store</legend>
+<%= simple_nested_form_for @store, html: { class: 'form-horizontal' } do |store_form| %>
+  <div class="row">
+    <div class="span7">
+    <fieldset>
+      <legend><%= controller.action_name.capitalize %> Store</legend>
+      <%= render :partial => "store_fields", :locals => { :f => store_form } %>
 
-    <%= f.input :name, input_html: {class: "avg"} %>
-    <%= f.input :street, input_html: {class: "avg"} %>
-    <%= f.input :city, input_html: {class: "avg"} %>
-    <%= f.input :state, collection: Store::STATES_LIST, include_blank: true, input_html: {class: "avg"} %>
-    <%= f.input :zip, input_html: {class: "avg"} %>
-    <%= f.input :phone, input_html: {class: "avg"} %>
-    <%= f.input :active %>
-
-    <div class="form-actions">
-      <%= f.submit nil, :class => 'button radius' %>
-      <%= link_to 'Cancel', stores_path, :class => 'button alert radius' %>
-    </div>
-  </fieldset>
+    </fieldset>
+  </div>
+  <div class="span5">
+      <legend>Flavors for this Store</legend>
+        <div id="store_flavors">
+          <%= store_form.simple_fields_for :flavors do |flavor_form| %>
+            <%= render :partial => "flavor_fields", :locals => { :f => flavor_form } %>
+          <% end %> 
+          <p>
+            <br/><%= store_form.link_to_add("Add Flavor", :flavors, :class => 'button tiny') %>
+          </p>
+        </div> 
+      </div>
+  </div>
+  <div class="form-actions">
+    <%= store_form.submit nil, :class => 'button radius' %>
+    <%= link_to 'Cancel', stores_path, :class => 'button secondary' %>
+  </div>
 <% end %>

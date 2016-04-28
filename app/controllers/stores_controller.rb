@@ -12,6 +12,7 @@ class StoresController < ApplicationController
 
   def new
     @store = Store.new
+    @store.flavors.build
   end
 
   def edit
@@ -46,7 +47,7 @@ class StoresController < ApplicationController
   end
 
   def store_params
-    params.require(:store).permit(:name, :street, :city, :state, :zip, :phone, :active)
+    params.require(:store).permit(:name, :street, :city, :state, :zip, :phone, :active, flavors_attributes: [:id, :name, :active, :_destroy])
   end
 
 end
