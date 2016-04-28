@@ -14,6 +14,7 @@ class ShiftsController < ApplicationController
 
   def new
     @shift = Shift.new
+    @shift.jobs.build
   end
 
   def edit
@@ -48,7 +49,7 @@ class ShiftsController < ApplicationController
   end
 
   def shift_params
-    params.require(:job).permit(:assignment_id, :date, :start_time, :end_time, :notes)
+    params.require(:job).permit(:assignment_id, :date, :start_time, :end_time, :notes, jobs_attributes: [:id, :name, :description, :active, :_destroy])
     #do we include date/start time/end time??
   end
 
