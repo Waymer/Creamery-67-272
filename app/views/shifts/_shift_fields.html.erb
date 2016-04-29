@@ -2,7 +2,7 @@
     <%= f.input :date, as: :date, start_year: Date.today.year,
                               end_year: Date.today.year + 100,
                               order: [:month, :day, :year], include_blank: true, input_html: {class: "avg"} %>
-
+    <%= f.input :date, label: "Date", as: :string, :input_html => {:class => "avg datepicker"} %>
     <%= f.input :start_time, input_html: {class: "avg"} %>
     <%= f.input :end_time, input_html: {class: "avg"} %>
     <%= f.input :notes, input_html: {class: "avg"} %>
