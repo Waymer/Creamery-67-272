@@ -8,11 +8,12 @@ class StoresController < ApplicationController
 
   def show
     @current_assignments = @store.assignments.current.by_employee.paginate(page: params[:page]).per_page(8)
+    @active_flavors = @store.flavors.paginate(page: params[:page]).per_page(8)
   end
 
   def new
     @store = Store.new
-    @store.flavors.build
+    # @store.flavors.build
   end
 
   def edit
@@ -20,9 +21,20 @@ class StoresController < ApplicationController
 
   def create
     @store = Store.new(store_params)
-    
-    if @store.save
-      redirect_to store_path(@store), notice: "Successfully created #{@store.name}."
+    #Melanie helped me with this part, was having weird saving problems
+
+    fis = @store.flavor_ids
+    @store.flavor_ids = []
+    if @store.valid?
+      @store.save
+      @store.flavor_ids = fis
+      if !@store.valid?
+        @store.destroy
+        render action: "new"
+      else
+        @store.save
+        redirect_to store_path(@store), notice: "Successfully created #{@store.name}."
+      end
     else
       render action: 'new'
     end
@@ -47,7 +59,7 @@ class StoresController < ApplicationController
   end
 
   def store_params
-    params.require(:store).permit(:name, :street, :city, :state, :zip, :phone, :active, flavors_attributes: [:id, :name, :active, :_destroy])
+    params.require(:store).permit(:name, :street, :city, :state, :zip, :phone, :active, :flavor_ids => [])
   end
 
 end

@@ -1,0 +1,20 @@
+<% if @active_flavors.empty? %>
+  <p><em>There are no active flavors at this time.</em></p>
+<% else %>
+  <h3>Current Flavors</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th width="225">Flavor Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @active_flavors.each do |flavor| %>
+        <tr>
+          <td><%= flavor.name %></td>     
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @active_flavors, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %> <p>&nbsp;</p>
+<% end %>

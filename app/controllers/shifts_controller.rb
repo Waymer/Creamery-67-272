@@ -16,7 +16,6 @@ class ShiftsController < ApplicationController
 
   def new
     @shift = Shift.new
-    @shift.jobs.build
   end
 
   def edit
@@ -24,9 +23,14 @@ class ShiftsController < ApplicationController
 
   def create
     @shift = Shift.new(shift_params)
+    #Melanie helped me with this part, was having weird saving problems
+    job_ids = @shift.job_ids
+    @shift.job_ids = []
     
     if @shift.save
-      redirect_to shift_path(@shift), notice: "Successfully created #{@shift.name}."
+      @shift.job_ids = job_ids
+      @shift.save
+      redirect_to shift_path(@shift), notice: "Successfully created #{@shift.employee.proper_name}'s' shift."
     else
       render action: 'new'
     end
@@ -34,7 +38,7 @@ class ShiftsController < ApplicationController
 
   def update
     if @shift.update(shift_params)
-      redirect_to shift_path(@shift), notice: "Successfully updated #{@shift.name}."
+      redirect_to shift_path(@shift), notice: "Successfully updated #{@shift.employee.proper_name}'s' shift."
     else
       render action: 'edit'
     end
@@ -42,7 +46,7 @@ class ShiftsController < ApplicationController
 
   def destroy
     @shift.destroy
-    redirect_to shifts_path, notice: "Successfully removed #{@shift.name} from the AMC system."
+    redirect_to shifts_path, notice: "Successfully removed #{@shift.employee.proper_name}'s' shift from the AMC system."
   end
 
   private
@@ -51,7 +55,7 @@ class ShiftsController < ApplicationController
   end
 
   def shift_params
-    params.require(:job).permit(:assignment_id, :date, :start_time, :end_time, :notes, jobs_attributes: [:id, :name, :description, :active, :_destroy])
+    params.require(:shift).permit(:assignment_id, :date, :start_time, :end_time, :notes, :job_ids => [])
     #do we include date/start time/end time??
   end
 

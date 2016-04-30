@@ -10,14 +10,21 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_self
  *= require foundation.min
  *= require normalize
  *= require font-awesome.min
  *= require foundation_and_overrides
  *= require simple_form
+ *= require datepicker
+ *= require_self
  */
+.ui-datepicker-next span {
+margin-left: -25px !important;
+}
 
+.ui-icon {
+  text-indent: 0px !important;
+}
  .tl_name {
   width: 225px;
   display: block;

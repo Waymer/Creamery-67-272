@@ -12,7 +12,7 @@ class Shift < ActiveRecord::Base
   validates_time :end_time, after: :start_time, allow_blank: true
   validate :assignment_must_be_current
 
-  accepts_nested_attributes_for :jobs, reject_if: lambda { |job| job[:name].blank? }, allow_destroy: true
+  # accepts_nested_attributes_for :jobs, reject_if: lambda { |job| job[:name].blank? }, allow_destroy: true
 
   # Scopes
   scope :chronological, -> { order(:date, :start_time) }

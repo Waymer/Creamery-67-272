@@ -4,6 +4,7 @@
     <%= render partial: "map" %>
   </div>
   <div class="small-5 columns">
+  	<%= render partial: "active_flavors" %>
     <%= render partial: "assigned_employees" unless @current_assignments.empty?%>
   </div>
 </div>

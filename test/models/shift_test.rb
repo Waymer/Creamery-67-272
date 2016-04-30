@@ -13,7 +13,7 @@ class ShiftTest < ActiveSupport::TestCase
   should_not allow_value("fred").for(:start_time)
   should_not allow_value(3.14159).for(:start_time)
   should_not allow_value(nil).for(:start_time)
-  should accept_nested_attributes_for(:jobs).allow_destroy(true)
+  # should accept_nested_attributes_for(:jobs).allow_destroy(true)
 
   context "Creating a context for shifts" do
     setup do 

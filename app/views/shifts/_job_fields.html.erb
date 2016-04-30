@@ -3,8 +3,8 @@
       <!-- x icon to remove -->
       <%= f.link_to_remove("x") %>
       <!-- fields -->
-      <%= f.input :name %>
-      <%= f.input :description %>
+      <%= f.input :name, :collection => Job.active.alphabetical, :include_blank => true, input_html: {class: "avg"} %>
       <%= f.input :active %>
+
     </div>
   </div>
