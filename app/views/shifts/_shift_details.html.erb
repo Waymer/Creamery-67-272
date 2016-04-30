@@ -1,0 +1,26 @@
+<h3>Shift Details</h3>
+<p>
+  <h4>
+    Assigned to: <%= @shift.employee.proper_name %>
+  </h4>
+</p>
+
+<p>
+  <b>Date:</b><br>
+  <%= @shift.date %>
+</p>
+
+<p>
+  <b>Start Time:</b><br>
+  <%= @shift.start_time.strftime("%I:%M%p") %>
+</p>
+
+<p>
+  <b>End Time:</b> <br>
+  <%= @shift.end_time.strftime("%I:%M%p") %>
+</p>
+
+<p>
+  <b>Notes:</b> 
+  <%= @shift.notes %>
+</p>

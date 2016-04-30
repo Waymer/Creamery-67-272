@@ -5,22 +5,26 @@
   <table class="table table-striped">
     <thead>
       <tr>
+      <th width="75">&nbsp;</th>
         <th width="225">Assigned Employee</th>
         <th width="225">Date</th>
         <th width="225">Start Time</th>
         <th width="225">End Time</th>
-        <th width="225">Notes</th>
         <th width="75">&nbsp;</th>
       </tr>
     </thead>
     <tbody>
       <% @past_shifts.each do |shift| %>
         <tr>
+        <td>
+            <%= link_to(shift_path(shift), class: 'button tiny radius warning') do %>
+              &nbsp;Details&nbsp;
+            <% end %>
+          </td>
           <td><%= link_to shift.assignment.employee.proper_name, employee_path(shift.assignment.employee) %></td> 
           <td><%= shift.date %></td>  
           <td><%= shift.start_time.strftime "%I:%M:%S %p" %></td>
           <td><%= shift.end_time.strftime "%I:%M:%S %p" %></td>
-          <td><%= shift.notes %></td>
           <td>
             <%= link_to(edit_shift_path(shift), class: 'button tiny radius warning') do %>
               &nbsp;Edit&nbsp;
