@@ -57,7 +57,7 @@ class Ability
           user.employee.current_assignment.store_id == s.assignment.store_id
         end
       end
-      can :update, Employee
+      # can :update, Employee
       can :create, ShiftJob do |sj|
         if current_assignment.nil?
           return false
@@ -105,8 +105,8 @@ class Ability
         my_employee.include? e.id
       end
       can :read, Store
-      can :read Flavor
-      can :read Job
+      can :read, Flavor
+      can :read, Job
       can :read, Assignment do |a|
         my_shifts = user.employee.assignments.map(&:id)
         my_shifts.include? a.id

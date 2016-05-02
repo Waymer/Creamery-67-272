@@ -1,10 +1,22 @@
 <% unless @inactive_employees.empty? %>
   <div class="panel callout radius">
+  <% if logged_in? && current_user.role?(:admin) %>
     <h3>Inactive Employees</h3>
     <ul>
       <% @inactive_employees.each do |employee| %>
         <li><%= link_to employee.name, employee_path(employee) %></li>
       <% end %>
     </ul>
+  </div>
+  <% end %>
+  <div class="panel callout radius">
+  <h3>Inactive Employees for your store</h3>
+  <% if !@st_inactive_employees.nil? %>
+    <ul>
+      <% @st_inactive_employees.each do |employee| %>
+        <li><%= link_to employee.name, employee_path(employee) %></li>
+      <% end %>
+    </ul>
+    <% end %>
   </div>
 <% end %>

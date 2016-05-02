@@ -1,33 +1,65 @@
 <% if @active_employees.empty? %>
   <p><em>There are no current employees at this time.</em></p>
 <% else %>
-  <h3>Current Employees</h3>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Phone</th>
-        <th>Currently Assigned</th>
-        <th>Role</th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @active_employees.each do |employee| %>
+  <% if logged_in? && current_user.role?(:admin) %>
+    <h3>Current Employees</h3>
+    <table class="table table-striped">
+      <thead>
         <tr>
-          <td><%= link_to employee.name, employee_path(employee) %></td>
-          <td><%= number_to_phone employee.phone unless employee.phone.nil?  %></td>
-          <td><%= link_to employee.current_assignment.store.name, store_path(employee.current_assignment.store) unless employee.current_assignment.nil? %></td>
-          <td><%= employee.role.capitalize %></td>
-          <td>
-            <%= link_to(edit_employee_path(employee), class: 'button tiny radius warning') do %>
-              &nbsp;Edit&nbsp;
-            <% end %>
-          </td>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Currently Assigned</th>
+          <th>Role</th>
+          <th>&nbsp;</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <%= will_paginate @active_employees, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
-
+      </thead>
+      <tbody>
+        <% @active_employees.each do |employee| %>
+          <tr>
+            <td><%= link_to employee.name, employee_path(employee) %></td>
+            <td><%= number_to_phone employee.phone unless employee.phone.nil?  %></td>
+            <td><%= link_to employee.current_assignment.store.name, store_path(employee.current_assignment.store) unless employee.current_assignment.nil? %></td>
+            <td><%= employee.role.capitalize %></td>
+            <td>
+              <%= link_to(edit_employee_path(employee), class: 'button tiny radius warning') do %>
+                &nbsp;Edit&nbsp;
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @active_employees, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+    <% end %>
+  <% if logged_in? && current_user.role?(:manager) %>
+    <% if !@st_active_employees.nil? %>
+    <h3>Current Employees at your Store</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Currently Assigned</th>
+          <th>Role</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @st_active_employees.each do |employee| %>
+          <tr>
+            <td><%= link_to employee.name, employee_path(employee) %></td>
+            <td><%= number_to_phone employee.phone unless employee.phone.nil?  %></td>
+            <td><%= link_to employee.current_assignment.store.name, store_path(employee.current_assignment.store) unless employee.current_assignment.nil? %></td>
+            <td><%= employee.role.capitalize %></td>
+            <td>
+              <%= link_to(edit_employee_path(employee), class: 'button tiny radius warning') do %>
+                &nbsp;Edit&nbsp;
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% end %>
+    <% end %>
 <% end %>

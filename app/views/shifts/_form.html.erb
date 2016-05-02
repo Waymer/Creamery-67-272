@@ -4,8 +4,13 @@
   <div class="span7">
     <legend><%= controller.action_name.capitalize %> Shift</legend>
 
+    <% if logged_in? && current_user.role?(:admin) %>
     <%= f.input :assignment_id, :collection => Assignment.current.chronological, :include_blank => true, input_html: {class: "avg"}  %>
-    
+    <% end %>
+
+    <% if logged_in? && current_user.role?(:manager) %>
+    <%= f.input :assignment_id, :collection => Assignment.current.for_store(current_user.employee.current_assignment.store), :include_blank => true, input_html: {class: "avg"}  %>
+    <% end %>
     <%= f.input :date, label: "Date", as: :string, :input_html => {:class => "avg datepicker"} %>
     <%= f.input :start_time, input_html: {class: "avg"} %>
     <%= f.input :end_time, input_html: {class: "avg"} %>

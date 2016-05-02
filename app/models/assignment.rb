@@ -36,6 +36,9 @@ class Assignment < ActiveRecord::Base
   def name
     "#{self.employee.last_name}, #{self.employee.first_name}"
   end
+  def role
+    return self.employee.role
+  end
   # Private methods for callbacks and custom validations
   private  
   

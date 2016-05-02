@@ -1,3 +1,4 @@
+<% if can? :read, Employee %>
 <div class="row">
   <div class="small-7 columns">
     <%= render partial: "employee_details" %>
@@ -6,6 +7,6 @@
     <%= render partial: "assignment_history" unless @assignments.empty?%>
   </div>
 </div>
-
+<% end %>
 <!-- Add buttons to list all, edit project or destroy object -->
 <%= render partial: "partials/object_options", locals: {model_name: "employee", object: @employee}  %>

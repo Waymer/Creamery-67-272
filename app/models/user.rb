@@ -18,8 +18,10 @@ class User < ActiveRecord::Base
   end
 
   def role?(authorized_role)
-    return false if self.employee.current_assignment.role.nil?
-    self.employee.current_assignment.role.to_sym == authorized_role
+    # return false if self.employee.current_assignment.role.nil?
+    return false if self.employee.role.nil?
+    self.employee.role.to_sym == authorized_role
+    # self.employee.current_assignment.role.to_sym == authorized_role
   end
   def role
     return self.employee.role
