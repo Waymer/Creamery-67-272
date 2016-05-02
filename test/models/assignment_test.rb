@@ -161,5 +161,13 @@ class AssignmentTest < ActiveSupport::TestCase
       remove_shifts      
     end
 
+    should "have working name method" do 
+      assert_equal "Gruberman, Ed", @assign_ed.name
+    end
+
+    should "have working role method" do 
+      assert_equal "employee", @assign_ed.role
+    end
+
   end
 end

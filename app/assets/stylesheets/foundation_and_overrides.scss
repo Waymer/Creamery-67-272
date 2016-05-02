@@ -1123,7 +1123,7 @@ $panel-bg: scale-color(#E1F7E7, $lightness: -5%);
 // $include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
-$topbar-bg-color: #339966;
+$topbar-bg-color: #fff;
 $topbar-bg: $topbar-bg-color;
 
 // Height and margin
@@ -1242,9 +1242,6 @@ $topbar-bg: $topbar-bg-color;
 }
 
 #footer {
-  margin-top: 15px;
-  padding-top: 0px;
-  padding-bottom: 15px;
   background-color:#ffffff;
   color: #229944;
   text-align: center;

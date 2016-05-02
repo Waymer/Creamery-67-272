@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <%= favicon_link_tag 'favicon.gif' %>
     <title>A &amp; M Creamery</title>
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
@@ -15,16 +15,17 @@
       <%= link_to image_tag('creamery_title.png'), home_path %>
     </div> -->
     <%= render :partial => "partials/nav" %>
+    <!-- <div id = "home"> -->
+    <!-- <div class="row"> -->
     
-    <div class="row">
-    
-      <div class="small-12 columns" id="main_content">
+      <div class="small-12 columns" id="">
         <%= render :partial => "partials/flash" %>
         <%= yield %>
       </div>
-    </div>
-    <footer>
-      <div class="small-12 columns" id="footer">
+    <!-- </div> -->
+    <!-- </div> -->
+    <footer  class="bgcolor1">
+      <div class="bgcolor1 small-12 columns" id="footer">
         <%= render partial: 'partials/footer' %>
       </div>
     </footer> 

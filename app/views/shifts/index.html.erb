@@ -1,18 +1,6 @@
-<% if logged_in? && current_user.role?(:admin) %>
+<% if logged_in? %>
 <%= render partial: "partials/index_structure", locals: {model_name: "shift", 
                                                          primary: "upcoming_shifts", 
                                                          secondary: nil,
                                                          sidebar: "past_shifts"} %>
-<% end %>
-<% if logged_in? %>
-<%= render partial: "partials/index_structure", locals: {model_name: "shift", 
-                                                         primary: "empl_upcoming_shifts", 
-                                                         secondary: nil,
-                                                         sidebar: "empl_past_shifts"} %>
-<% end %>
-<% if logged_in? && current_user.role?(:manager) %>
-<%= render partial: "partials/index_structure", locals: {model_name: "shift", 
-                                                         primary: "st_upcoming_shifts", 
-                                                         secondary: nil,
-                                                         sidebar: "st_past_shifts"} %>
 <% end %>

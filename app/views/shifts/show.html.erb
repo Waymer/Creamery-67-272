@@ -2,6 +2,12 @@
   <div class="small-7 columns">
     <%= render partial: "shift_details" %>
     <%= render partial: "job_list" %>
+    <%= link_to(start_now_path(:id => @shift.id), class: 'button radius') do %>
+        &nbsp;<%= "Start Now" %>
+    <% end %>
+    <%= link_to(end_now_path(:id => @shift.id), class: 'button radius') do %>
+        &nbsp;<%= "End Now" %>
+    <% end %>
   </div>
 </div>
 

@@ -1,5 +1,5 @@
 class ShiftsController < ApplicationController
-  before_action :set_shift, only: [:show, :edit, :update, :destroy]
+  before_action :set_shift, only: [:show, :edit, :update, :destroy, :end_now, :start_now]
   
   def index
     if logged_in? && !current_user.role?(:admin)
@@ -53,6 +53,17 @@ class ShiftsController < ApplicationController
     redirect_to shifts_path, notice: "Successfully removed #{@shift.employee.proper_name}'s' shift from the AMC system."
   end
 
+  def end_now
+    @shift.update_attribute(:end_time, Time.current)
+    @shift.save
+    redirect_to shift_path(@shift), notice: "Successfully ended #{@shift.employee.proper_name}'s' shift."
+  end
+
+  def start_now
+    @shift.update_attribute(:start_time, Time.current)
+    @shift.save
+    redirect_to shift_path(@shift), notice: "Successfully started #{@shift.employee.proper_name}'s' shift."
+  end
   private
   def set_shift
     @shift = Shift.find(params[:id])

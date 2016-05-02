@@ -10,10 +10,9 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require foundation.min
+ *= require foundation_and_overrides
  *= require normalize
  *= require font-awesome.min
- *= require foundation_and_overrides
  *= require simple_form
  *= require datepicker
  *= require_self
@@ -74,16 +73,15 @@ margin-left: -25px !important;
 }
 
 #footer {
-  margin-top: 15px;
-  padding-top: 0px;
-  padding-bottom: 15px;
-  background-color:#ffffff;
-  color: #229944;
+  background-color:#cc6600;
+  color: black;
   text-align: center;
 }
-
+footer {
+  background-color:#cc6600;
+}
 #footer a {
-  color: #339999;
+  color: white;
   text-decoration: none;
 }
 
@@ -123,4 +121,31 @@ label {
 
 h2 {
   font-style: italic
+}
+.whitefont {
+  color: white;
+}
+.bgcolor1 {
+  background: #cc6600;
+}
+#home {
+  background-image: image-url("peachice.jpg");
+  height: 100vh;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: 0px;
+  margin-top: -10px;
+}
+#home1 {
+  height: 100vh;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: 0px;
+  margin-top: -10px;
+}
+
+h7 {
+  font-size: 3em;
 }

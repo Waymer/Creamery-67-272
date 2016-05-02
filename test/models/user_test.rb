@@ -55,9 +55,17 @@ class UserTest < ActiveSupport::TestCase
     end
 
     should "have working class method for authenication" do 
-      assert User.authenticate("ben@example.com", "creamery")
-      deny User.authenticate("ben@example.com", "password")
+      assert User.authenticate("alex@example.com", "creamery")
+      deny User.authenticate("alex@example.com", "password")
     end
 
+    should "have working name method" do 
+      assert_equal "Alex Heimann", @alex_user.name
+    end
+
+    should "have working role method" do 
+      assert_equal "admin", @alex_user.role
+      assert_equal "manager", @ben_user.role
+    end
   end
 end

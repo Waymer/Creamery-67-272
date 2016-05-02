@@ -3,8 +3,9 @@
     <section class="top-bar-section">
       <ul class="left">
         <!-- link to home -->
-        <li><%= link_to "Home", home_path %></li>
-
+        <li><%= link_to "A&M Creamery", home_path %></li>
+      </ul>
+      <ul class="right">
         <!-- options for stores -->
         <li class="has-dropdown">
           <%= link_to "Stores", stores_path %>
@@ -58,18 +59,19 @@
             <li><%= link_to "Add a Shift", new_shift_path %></li>
           </ul>
         </li>
-      </ul>
-
-      <div id="login">
+        <li>
+        <div class="whitefont bgcolor1" id="login">
       <!-- content once logged in goes here -->
         <% if logged_in? %>
           <%= link_to 'Logout', logout_path %>
-          [<%= current_user.name %>:<%= current_user.role %>]
+          <%= current_user.name %> : <%= current_user.role.capitalize %>
         <% else %>
           <%= link_to 'Login', login_path %>
         <% end %>
+       </div>
+       </li>
+      </ul>
 
-    </div>
       
     </section>
   </nav>
