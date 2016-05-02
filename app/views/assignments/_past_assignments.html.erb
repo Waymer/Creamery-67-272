@@ -1,3 +1,8 @@
 <% unless @past_assignments.empty? %>
-  <%= render partial: "assignment_list", locals: {assignments: @past_assignments, state: 'past'} %>
+	<% if logged_in? && current_user.role?(:admin) %>
+  		<%= render partial: "assignment_list", locals: {assignments: @past_assignments, state: 'past'} %>
+  	<% end %>
+  	<% if logged_in? && current_user.role?(:manager) %>
+  	<%= render partial: "assignment_list", locals: {assignments: @st_past_assignments, state: 'store specific past'} %>
+  	<% end %>
 <% end %>

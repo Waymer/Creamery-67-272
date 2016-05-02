@@ -1,0 +1,38 @@
+<% if !@st_past_shifts.nil? and @st_past_shifts.empty? %>
+  <p><em>There are no past shifts for your store.</em></p>
+<% elsif !@st_past_shifts.nil? and !@st_past_shifts.empty? %>
+  <h3>Past Shifts for your Store</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+      <th width="75">&nbsp;</th>
+        <th width="225">Assigned Employee</th>
+        <th width="225">Date</th>
+        <th width="225">Start Time</th>
+        <th width="225">End Time</th>
+        <th width="75">&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @st_past_shifts.each do |shift| %>
+        <tr>
+        <td>
+            <%= link_to(shift_path(shift), class: 'button tiny radius warning') do %>
+              &nbsp;Details&nbsp;
+            <% end %>
+          </td>
+          <td><%= link_to shift.assignment.employee.proper_name, employee_path(shift.assignment.employee) %></td> 
+          <td><%= shift.date %></td>  
+          <td><%= shift.start_time.strftime "%I:%M:%S %p" %></td>
+          <td><%= shift.end_time.strftime "%I:%M:%S %p" %></td>
+          <td>
+            <%= link_to(edit_shift_path(shift), class: 'button tiny radius warning') do %>
+              &nbsp;Edit&nbsp;
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @st_past_shifts, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %> <p>&nbsp;</p>
+<% end %>

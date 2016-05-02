@@ -1,3 +1,9 @@
 <% unless @current_assignments.empty? %>
-  <%= render partial: "assignment_list", locals: {assignments: @current_assignments, state: 'current'} %>
+	<% if logged_in? && current_user.role?(:admin) %>
+  		<%= render partial: "assignment_list", locals: {assignments: @current_assignments, state: 'current'} %>
+  	<% end %>
+  	<% if logged_in? && current_user.role?(:manager) %>
+  		<%= render partial: "assignment_list", locals: {assignments: @st_current_assignments, state: 'store specific current'} %>
+  	<% end %>
+
 <% end %>

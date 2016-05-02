@@ -4,10 +4,10 @@ class EmployeesController < ApplicationController
   def index
     @active_employees = Employee.active.alphabetical.paginate(page: params[:page]).per_page(10)
     @inactive_employees = Employee.inactive.alphabetical.paginate(page: params[:page]).per_page(10)
-    # if logged_in? and !current_user.employee.current_assignment.nil? and current_user.role?(:manager)
+    if logged_in? and !current_user.employee.current_assignment.nil?
       @st_active_employees = Assignment.current.for_store(current_user.employee.current_assignment.store).map{|a| a.employee}
       @st_inactive_employees = Assignment.for_store(current_user.employee.current_assignment.store).map{|a| a.employee}.select{|e| e.active == false}
-    # end
+    end
   end
 
   def show
