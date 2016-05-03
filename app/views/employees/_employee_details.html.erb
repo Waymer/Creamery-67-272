@@ -1,4 +1,9 @@
-<h3>Employee Details</h3>
+<% if logged_in? && !current_user.employee.nil? && current_user.employee.name != @employee.name %>
+	<h3>Employee Details</h3> 	
+<% end %>
+<% if logged_in? && !current_user.employee.nil? && current_user.employee.name == @employee.name %>
+	<h3>Hello, <%= @employee.proper_name %></h3>
+<% end %>
 <p>
   <h4>
     Name: <%= @employee.name %>

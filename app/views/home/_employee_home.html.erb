@@ -1,0 +1,22 @@
+<div class = "section main " id="">
+	<br>
+	<div class="row">
+		<div class="small-4 columns">
+			<%= render :partial => "employees/employee_details" %>
+		</div>
+		<div class="small-4 columns">
+			<%= link_to(eval("edit_employee_path(current_user.employee)"), class: 'button radius') do %>
+		        &nbsp;<%= "Edit Your Details" %>
+		    <% end %>
+
+		</div>
+		<div class="small-4 columns">
+			
+		</div>
+		
+	</div>
+	<div class="row">	
+		<h1>Your Upcoming Shifts</h1>
+		<%= render :partial => "shifts/upcoming_shifts" %>
+	</div>
+</div>

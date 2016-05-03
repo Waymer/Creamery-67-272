@@ -1,2 +1,12 @@
-
+<% if !logged_in? %>
 	<%= render :partial => 'general_home' %>
+<% end %>
+<% if logged_in? && current_user.role?(:admin) %>
+	<%= render :partial => 'admin_home' %>
+<% end %>
+<% if logged_in? && current_user.role?(:manager) %>
+	<%= render :partial => 'manager_home' %>
+<% end %>
+<% if logged_in? && current_user.role?(:employee) %>
+	<%= render :partial => 'employee_home' %>
+<% end %>

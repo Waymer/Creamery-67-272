@@ -1,9 +1,14 @@
 <% unless @current_assignments.empty? %>
+	<% if logged_in? && !current_user.employee.current_assignment.nil?%>
+		<%= link_to(assignment_path(current_user.employee.current_assignment), class: 'button radius') do %>
+                &nbsp;View Your Current Assignment&nbsp;
+              <% end %>
+  	<% end %>
 	<% if logged_in? && current_user.role?(:admin) %>
   		<%= render partial: "assignment_list", locals: {assignments: @current_assignments, state: 'current'} %>
   	<% end %>
   	<% if logged_in? && current_user.role?(:manager) %>
   		<%= render partial: "assignment_list", locals: {assignments: @st_current_assignments, state: 'store specific current'} %>
   	<% end %>
-
+  	
 <% end %>

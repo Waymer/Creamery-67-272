@@ -18,7 +18,7 @@
     <!-- <div id = "home"> -->
     <!-- <div class="row"> -->
     
-      <div class="small-12 columns" id="<%= controller_name == "home" ? "home" : "" %>">
+      <div class="small-12 columns" id="<%= (controller_name == "home" && !logged_in?) ? "home" : "" %>">
         <%= render :partial => "partials/flash" %>
         <%= yield %>
       </div>

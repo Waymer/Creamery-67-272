@@ -119,5 +119,18 @@ class StoreTest < ActiveSupport::TestCase
       @cmu.reload
       deny @cmu.active
     end
+
+    should "show that create_map_link works" do
+      map = @oakland.create_map_link
+      latitude = @oakland.latitude
+      longitude = @oakland.longitude
+      zoom=12
+      width=800
+      height=800
+      markers = ""; i = 1
+      markers += "&markers=color:red%7Ccolor:red%7Clabel:#{i}%7C#{latitude},#{longitude}"
+      assert_equal map, "http://maps.google.com/maps/api/staticmap?center=#{latitude},#{longitude}&zoom=#{zoom}&size=#{width}x#{height}&maptype=roadmap#{markers}&sensor=false"
+
+    end
   end
 end

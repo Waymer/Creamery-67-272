@@ -89,7 +89,7 @@
       <!-- content once logged in goes here -->
         <% if logged_in? %>
           <%= link_to 'Logout', logout_path, class: 'button radius' %>
-          <%= current_user.name %> : <%= current_user.role.capitalize %>
+          <span id="8pt" class="ept"><%= current_user.name %> : <%= current_user.role.capitalize %></span>
         <% else %>
           <%= link_to 'Login', login_path, class: 'button radius' %>
         <% end %>

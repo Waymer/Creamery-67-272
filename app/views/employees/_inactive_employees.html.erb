@@ -1,6 +1,7 @@
 <% unless @inactive_employees.empty? %>
+<% if logged_in? && current_user.role?(:admin) %>
   <div class="panel callout radius">
-  <% if logged_in? && current_user.role?(:admin) %>
+  
     <h3>Inactive Employees</h3>
     <ul>
       <% @inactive_employees.each do |employee| %>
@@ -9,7 +10,9 @@
     </ul>
   </div>
   <% end %>
+  <% if logged_in? && current_user.role?(:manager) %>
   <div class="panel callout radius">
+  
   <h3>Inactive Employees for your store</h3>
   <% if !@st_inactive_employees.nil? %>
     <ul>
@@ -19,4 +22,5 @@
     </ul>
     <% end %>
   </div>
+  <% end %>
 <% end %>
