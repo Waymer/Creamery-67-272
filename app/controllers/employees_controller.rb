@@ -2,6 +2,9 @@ class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
   
   def index
+    if !logged_in?
+      redirect_to home_path
+    end
     @active_employees = Employee.active.alphabetical.paginate(page: params[:page]).per_page(10)
     @inactive_employees = Employee.inactive.alphabetical.paginate(page: params[:page]).per_page(10)
     if logged_in? and !current_user.employee.current_assignment.nil?

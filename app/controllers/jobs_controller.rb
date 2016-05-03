@@ -2,6 +2,9 @@ class JobsController < ApplicationController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
   
   def index
+    if !logged_in?
+      redirect_to home_path
+    end
     @active_jobs = Job.active.alphabetical.paginate(page: params[:page]).per_page(10)
     @inactive_jobs = Job.inactive.alphabetical.paginate(page: params[:page]).per_page(10)  
   end

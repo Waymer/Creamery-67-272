@@ -2,6 +2,9 @@ class ShiftsController < ApplicationController
   before_action :set_shift, only: [:show, :edit, :update, :destroy, :end_now, :start_now]
   
   def index
+    if !logged_in?
+      redirect_to home_path
+    end
     if logged_in? && !current_user.role?(:admin)
       @empl_upcoming_shifts = Shift.upcoming.for_employee(current_user.employee).paginate(page: params[:page]).per_page(10)
       @empl_past_shifts = Shift.past.for_employee(current_user.employee).paginate(page: params[:page]).per_page(10)  
