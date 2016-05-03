@@ -1,5 +1,5 @@
 class AssignmentsController < ApplicationController
-  before_action :set_assignment, only: [:edit, :update, :destroy]
+  before_action :set_assignment, only: [:edit, :show, :update, :destroy]
   # before_action :set_assignment, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -14,10 +14,10 @@ class AssignmentsController < ApplicationController
     end
   end
 
-  # def show
-  #   # get the shift history for this assignment (later; empty now)
-  #   @shifts = Array.new
-  # end
+  def show
+    # get the shift history for this assignment (later; empty now)
+    @shifts = @assignment.shifts
+  end
 
   def new
     @assignment = Assignment.new

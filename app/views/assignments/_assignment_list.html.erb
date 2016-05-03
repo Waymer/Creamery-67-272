@@ -5,6 +5,9 @@
   <table class="table table-striped">
     <thead>
       <tr>
+        <% if can? :show, Assignment %> 
+        <th>&nbsp;</th>
+        <% end %>
         <th>Store</th>
         <th>Employee</th>
         <th class="centered">Pay</th>
@@ -20,6 +23,13 @@
     <tbody>
       <% assignments.each do |assignment| %>
         <tr>
+          <% if can? :show, Assignment %> 
+          <td>
+            <%= link_to(assignment_path(assignment), class: 'button tiny radius') do %>
+              &nbsp;View Details&nbsp;
+            <% end %>
+          </td>
+          <% end %>
           <td><%= link_to assignment.store.name, store_path(assignment.store) %></td>
           <td><%= link_to assignment.employee.name, employee_path(assignment.employee) %></td>
           <td class="centered"><%= assignment.pay_level %></td>
