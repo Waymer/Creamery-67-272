@@ -20,7 +20,7 @@ class JobsController < ApplicationController
     @job = Job.new(job_params)
     
     if @job.save
-      redirect_to job_path(@job), notice: "Successfully created #{@job.name}."
+      redirect_to jobs_path, notice: "Successfully created #{@job.name}."
     else
       render action: 'new'
     end
@@ -28,7 +28,7 @@ class JobsController < ApplicationController
 
   def update
     if @job.update(job_params)
-      redirect_to job_path(@job), notice: "Successfully updated #{@job.name}."
+      redirect_to jobs_path, notice: "Successfully updated #{@job.name}."
     else
       render action: 'edit'
     end
@@ -44,7 +44,7 @@ class JobsController < ApplicationController
     @job = Job.find(params[:id])
   end
 
-  def store_params
+  def job_params
     params.require(:job).permit(:name, :description, :active)
   end
 
