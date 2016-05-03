@@ -6,31 +6,39 @@
   <table class="table table-striped">
     <thead>
       <tr>
+        <% if can? :show, Shift %> 
         <th width="75">&nbsp;</th>
+        <% end %>
         <th width="225">Assigned Employee</th>
         <th width="225">Date</th>
         <th width="225">Start Time</th>
         <th width="225">End Time</th>
+        <% if can? :update, Shift %> 
         <th width="75">&nbsp;</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
       <% @upcoming_shifts.each do |shift| %>
         <tr>
+        <% if can? :show, Shift %>
         <td>
             <%= link_to(shift_path(shift), class: 'button tiny radius warning') do %>
               &nbsp;Details&nbsp;
             <% end %>
           </td>
+          <% end %>
           <td><%= link_to shift.assignment.employee.proper_name, employee_path(shift.assignment.employee) %></td> 
           <td><%= shift.date %></td>  
           <td><%= shift.start_time.strftime "%I:%M:%S %p" %></td>
           <td><%= shift.end_time.strftime "%I:%M:%S %p" %></td>
+           <% if can? :update, Shift %> 
           <td>
             <%= link_to(edit_shift_path(shift), class: 'button tiny radius warning') do %>
               &nbsp;Edit&nbsp;
             <% end %>
           </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
@@ -47,31 +55,39 @@
   <table class="table table-striped">
     <thead>
       <tr>
-      <th width="75">&nbsp;</th>
+        <% if can? :show, Shift %> 
+        <th width="75">&nbsp;</th>
+        <% end %>
         <th width="225">Assigned Employee</th>
         <th width="225">Date</th>
         <th width="225">Start Time</th>
         <th width="225">End Time</th>
+        <% if can? :update, Shift %> 
         <th width="75">&nbsp;</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
       <% @empl_upcoming_shifts.each do |shift| %>
         <tr>
+        <% if can? :show, Shift %>
         <td>
             <%= link_to(shift_path(shift), class: 'button tiny radius warning') do %>
               &nbsp;Details&nbsp;
             <% end %>
           </td>
+          <% end %>
           <td><%= link_to shift.assignment.employee.proper_name, employee_path(shift.assignment.employee) %></td> 
           <td><%= shift.date %></td>  
           <td><%= shift.start_time.strftime "%I:%M:%S %p" %></td>
           <td><%= shift.end_time.strftime "%I:%M:%S %p" %></td>
+           <% if can? :update, Shift %> 
           <td>
             <%= link_to(edit_shift_path(shift), class: 'button tiny radius warning') do %>
               &nbsp;Edit&nbsp;
             <% end %>
           </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
@@ -82,37 +98,45 @@
 
 <% if logged_in? && current_user.role?(:manager) && !current_user.role?(:admin)%>
 <% if !@st_upcoming_shifts.nil? and @st_upcoming_shifts.empty? %>
-  <p><em>There are no upcoming shifts for you.</em></p>
+  <p><em>There are no upcoming shifts for your store.</em></p>
 <% elsif  !@st_upcoming_shifts.nil? and !@st_upcoming_shifts.empty?%>
-  <h3>Upcoming Shifts</h3>
+  <h3>Upcoming Shifts for your Store</h3>
   <table class="table table-striped">
     <thead>
       <tr>
-      <th width="75">&nbsp;</th>
+        <% if can? :show, Shift %> 
+        <th width="75">&nbsp;</th>
+        <% end %>
         <th width="225">Assigned Employee</th>
         <th width="225">Date</th>
         <th width="225">Start Time</th>
         <th width="225">End Time</th>
+        <% if can? :update, Shift %> 
         <th width="75">&nbsp;</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
       <% @st_upcoming_shifts.each do |shift| %>
         <tr>
+        <% if can? :show, Shift %>
         <td>
             <%= link_to(shift_path(shift), class: 'button tiny radius warning') do %>
               &nbsp;Details&nbsp;
             <% end %>
           </td>
+          <% end %>
           <td><%= link_to shift.assignment.employee.proper_name, employee_path(shift.assignment.employee) %></td> 
           <td><%= shift.date %></td>  
           <td><%= shift.start_time.strftime "%I:%M:%S %p" %></td>
           <td><%= shift.end_time.strftime "%I:%M:%S %p" %></td>
+           <% if can? :update, Shift %> 
           <td>
             <%= link_to(edit_shift_path(shift), class: 'button tiny radius warning') do %>
               &nbsp;Edit&nbsp;
             <% end %>
           </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

@@ -86,6 +86,13 @@ class Ability
           user.employee.current_assignment.store_id == sf.store_id
         end
       end
+      can :update, User do |u|  
+        u.id == user.id
+      end
+      can :update, Employee do |e|  
+        my_employee = user.employee.map(&:id)
+        my_employee.include? e.id
+      end
     elsif user.role? :employee
       # they can read their own profile
       can :read, User do |u|  

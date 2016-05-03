@@ -1,6 +1,16 @@
 <% if @active_employees.empty? %>
   <p><em>There are no current employees at this time.</em></p>
+  <% if logged_in? %>
+  <%= link_to(employee_path(current_user.employee), class: 'button radius') do %>
+                &nbsp;View Your Information&nbsp;
+              <% end %>
+  <% end %>
 <% else %>
+  <% if logged_in? %>
+  <%= link_to(employee_path(current_user.employee), class: 'button radius') do %>
+                &nbsp;View Your Information&nbsp;
+              <% end %>
+  <% end %>
   <% if logged_in? && current_user.role?(:admin) %>
     <h3>Current Employees</h3>
     <table class="table table-striped">
@@ -10,7 +20,9 @@
           <th>Phone</th>
           <th>Currently Assigned</th>
           <th>Role</th>
+          <% if can? :update, Employee %>
           <th>&nbsp;</th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
@@ -20,11 +32,14 @@
             <td><%= number_to_phone employee.phone unless employee.phone.nil?  %></td>
             <td><%= link_to employee.current_assignment.store.name, store_path(employee.current_assignment.store) unless employee.current_assignment.nil? %></td>
             <td><%= employee.role.capitalize %></td>
+          <% if can? :update, Employee %>
+
             <td>
               <%= link_to(edit_employee_path(employee), class: 'button tiny radius warning') do %>
                 &nbsp;Edit&nbsp;
               <% end %>
             </td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
@@ -41,7 +56,9 @@
           <th>Phone</th>
           <th>Currently Assigned</th>
           <th>Role</th>
+          <% if can? :update, Employee %>
           <th>&nbsp;</th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
@@ -51,15 +68,18 @@
             <td><%= number_to_phone employee.phone unless employee.phone.nil?  %></td>
             <td><%= link_to employee.current_assignment.store.name, store_path(employee.current_assignment.store) unless employee.current_assignment.nil? %></td>
             <td><%= employee.role.capitalize %></td>
+            <% if can? :update, Employee %>
             <td>
               <%= link_to(edit_employee_path(employee), class: 'button tiny radius warning') do %>
                 &nbsp;Edit&nbsp;
               <% end %>
             </td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
     </table>
     <% end %>
     <% end %>
+
 <% end %>

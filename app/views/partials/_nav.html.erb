@@ -10,10 +10,12 @@
         <% if can? :index, Store %>
         <li class="has-dropdown">
           <%= link_to "Stores", stores_path %>
+          <% if can? :create, Store %>
           <ul class="dropdown">
             <li><%= link_to "Store List", stores_path %></li>
             <li><%= link_to "Add a Store", new_store_path %></li>
           </ul>
+          <% end %>
         </li>
         <% end %>
 
@@ -21,10 +23,12 @@
         <% if can? :index, Employee %>
         <li class="has-dropdown">
           <%= link_to "Employees", employees_path %>
+          <% if can? :create, Employee %>
           <ul class="dropdown">
             <li><%= link_to "Employee List", employees_path %></li>
             <li><%= link_to "Add an Employee", new_employee_path %></li>
           </ul>
+          <% end %>
         </li>
         <% end %>
 
@@ -45,7 +49,7 @@
         <% if can? :index, Flavor %>
         <li class="has-dropdown">
           <%= link_to "Flavors", flavors_path %>
-          <% if can? :create, Flavor %>
+          <% if can? :create, StoreFlavor %>
           <ul class="dropdown">
             <li><%= link_to "Flavor List", flavors_path %></li>
             <li><%= link_to "Add a Flavor", new_flavor_path %></li>
@@ -58,7 +62,7 @@
         <% if can? :index, Job %>
       <li class="has-dropdown">
           <%= link_to "Jobs", jobs_path %>
-          <% if can? :create, Job %>
+          <% if can? :create, ShiftJob %>
           <ul class="dropdown">
             <li><%= link_to "Job List", jobs_path %></li>
             <li><%= link_to "Add a Job", new_job_path %></li>
@@ -68,7 +72,7 @@
         <% end %>
 
         <!-- options for shifts -->
-        <% if can? :index, Job %>
+        <% if can? :index, Shift %>
       <li class="has-dropdown">
           <%= link_to "Shifts", shifts_path %>
           <% if can? :create, Shift %>

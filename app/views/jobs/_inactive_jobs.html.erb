@@ -7,19 +7,23 @@
       <tr>
         <th width="225">Job Name</th>
         <th width="225">Job Description</th>
+         <% if can? :update, Job %> 
         <th width="75">&nbsp;</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
       <% @inactive_jobs.each do |job| %>
         <tr>
           <td><%= job.name %></td> 
-          <td><%= job.description %></td>       
+          <td><%= job.description %></td>    
+           <% if can? :update, Job %>    
           <td>
             <%= link_to(edit_job_path(job), class: 'button tiny radius warning') do %>
               &nbsp;Edit&nbsp;
             <% end %>
           </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
