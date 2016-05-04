@@ -67,5 +67,15 @@ class UserTest < ActiveSupport::TestCase
       assert_equal "admin", @alex_user.role
       assert_equal "manager", @ben_user.role
     end
+
+    should "have working role? method to be used in ability.rb" do
+      assert_equal true, @alex_user.role?(:admin)
+      @kathryn_user = FactoryGirl.build(:user, employee: @kathryn, email: "kathryn@example.com")
+      @nil_user = FactoryGirl.build(:user, employee: nil, email: "nil@example.com")
+      assert_equal false, @nil_user.role?(:admin)
+      @george = FactoryGirl.build(:employee, first_name: "George", last_name: "Wilson", active: true, date_of_birth: 16.years.ago.to_date)
+      @george_user = FactoryGirl.build(:user, employee: @george, email: "george@example.com")
+      assert_equal false, @george_user.role?(:admin)
+    end
   end
 end
